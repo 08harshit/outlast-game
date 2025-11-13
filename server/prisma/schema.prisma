@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  }
+enum GameStatus {
+  waiting
+  in_progress
+  finished
+}
+
+enum BarrierType {
+  wall
+  tree
+  rock
+}
+
+model Player {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  gamePlayers GamePlayer[]
+}
+
+model Game {
+  id        String      @id @default(uuid())
+  status    GameStatus
+  createdAt DateTime    @default(now())
+  endedAt   DateTime?
+  gamePlayers GamePlayer[]
+  barriers    Barrier[]
+}
+
+model GamePlayer {
+  id            String   @id @default(uuid())
+  gameId        String
+  playerId      String
+  health        Int
+  isAlive       Boolean
+  lastPositionX Float?
+  lastPositionY Float?
+  game   Game   @relation(fields: [gameId], references: [id])
+  player Player @relation(fields: [playerId], references: [id])
+}
+
+model Barrier {
+  id            String      @id @default(uuid())
+  gameId        String
+  posX          Float
+    posY          Float
+    width         Float
+    height        Float
+    type          BarrierType
+    isDestructible Boolean
+    game   Game   @relation(fields: [gameId], references: [id])
+}

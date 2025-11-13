@@ -1,0 +1,39 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+.env
+.env.*
+.DS_Store
+coverage/
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Prisma
+prisma/generated/
+prisma/migrations/
+
+# TypeScript declaration files
+*.d.ts
+
+# JavaScript files
+*.js
+*.mjs
+
+# Prisma
+prisma/generated/
+prisma/migrations/
+
+# OS
+Thumbs.db
