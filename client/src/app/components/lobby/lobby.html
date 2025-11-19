@@ -1,0 +1,104 @@
+<div class="lobby-container">
+  <div class="lobby-content">
+    <!-- Header -->
+    <div class="lobby-header">
+      <h1>🎮 Outlast Game</h1>
+      <p class="subtitle">Multiplayer Battle Arena</p>
+    </div>
+
+    <!-- Connection Status -->
+    <div class="connection-status" [ngClass]="{ connected: isConnected, disconnected: !isConnected }">
+      <span class="status-indicator" [ngClass]="{ online: isConnected, offline: !isConnected }"></span>
+      {{ isConnected ? '✅ Connected to server' : '❌ Disconnected from server' }}
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <span class="error-icon">⚠️</span>
+      {{ errorMessage }}
+    </div>
+
+    <!-- Game Created Display -->
+    <div *ngIf="currentGameId" class="game-created-box">
+      <h2>🎯 Game Created!</h2>
+      <p>Share this Game ID with your friends:</p>
+      <div class="game-id-display">
+        <code>{{ currentGameId }}</code>
+        <button class="copy-btn" (click)="copyGameId()" title="Copy Game ID">
+          📋 Copy
+        </button>
+      </div>
+      <p class="waiting-text">⏳ Waiting for other players to join...</p>
+    </div>
+
+    <!-- Main Controls (visible before game creation) -->
+    <div *ngIf="!currentGameId" class="main-controls">
+      <!-- Username Input -->
+      <div class="input-group">
+        <label for="username">👤 Username</label>
+        <input
+          id="username"
+          [(ngModel)]="username"
+          type="text"
+          placeholder="Enter your username"
+          (keyup.enter)="createGame()"
+          [disabled]="isLoading || !isConnected"
+          maxlength="20"
+        />
+      </div>
+
+      <!-- Create Game Section -->
+      <div class="section">
+        <h2>Start New Game</h2>
+        <button
+          class="btn btn-primary"
+          (click)="createGame()"
+          [disabled]="isLoading || !isConnected || !username.trim()"
+        >
+          <span *ngIf="!isLoading">🚀 Create Game</span>
+          <span *ngIf="isLoading">⏳ Creating...</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <!-- Join Game Section -->
+      <div class="section">
+        <h2>Join Existing Game</h2>
+        <div class="input-group">
+          <label for="gameId">🎫 Game ID</label>
+          <input
+            id="gameId"
+            [(ngModel)]="gameId"
+            type="text"
+            placeholder="Enter the Game ID from your friend"
+            (keyup.enter)="joinGame()"
+            [disabled]="isLoading || !isConnected"
+          />
+        </div>
+        <button
+          class="btn btn-secondary"
+          (click)="joinGame()"
+          [disabled]="isLoading || !isConnected || !gameId.trim() || !username.trim()"
+        >
+          <span *ngIf="!isLoading">✅ Join Game</span>
+          <span *ngIf="isLoading">⏳ Joining...</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Connecting to game server...</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="lobby-footer">
+    <p>Use WASD or Arrow Keys to move • Mouse to aim • Left Click to shoot</p>
+  </div>
+</div>

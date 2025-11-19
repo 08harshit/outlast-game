@@ -1,0 +1,17 @@
+{
+  "name": "@outlast/shared",
+  "version": "1.0.0",
+  "description": "Shared types, DTOs, and interfaces for Outlast game",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

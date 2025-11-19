@@ -16,7 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@shared/*": ["./shared/src/*"]
+      "@shared/*": ["./shared/dist/*"]
     }
   }
 }

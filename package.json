@@ -2,19 +2,29 @@
   "name": "outlast-monorepo",
   "private": true,
   "workspaces": [
+    "shared",
     "client",
     "server"
   ],
   "scripts": {
-    "postinstall": "npm install --prefix client && npm install --prefix server",
+    "postinstall": "npm install --prefix shared && npm install --prefix client && npm install --prefix server",
     "dev:client": "npm run start --prefix client",
     "dev:server": "npm run start:dev --prefix server",
+    "build:shared": "npm run build --prefix shared",
     "build:client": "npm run build --prefix client",
     "build:server": "npm run build --prefix server",
-    "build:all": "npm run build:server && npm run build:client"
+    "build:all": "npm run build:shared && npm run build:server && npm run build:client"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@nestjs/websockets": "^11.1.8",
+    "@prisma/client": "^6.19.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   }
 }

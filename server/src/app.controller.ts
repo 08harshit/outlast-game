@@ -13,7 +13,7 @@ export class AppController {
 
   @Post('player-state')
   updatePlayerState(@Body() state: PlayerState) {
-    console.log(`🎮 [${new Date().toISOString()}] Received game frame from player: ${state.id}`);
+    console.log(`🎮 [${new Date().toISOString()}] Received game frame from player: ${state.gamePlayerId} (${state.username})`);
     return this.appService.updatePlayerState(state);
   }
 

@@ -10,17 +10,18 @@ export class AppService {
   }
 
   updatePlayerState(state: PlayerState): { status: 'ok' } {
-    const isNewPlayer = !this.players.has(state.id);
-    this.players.set(state.id, state);
+    const isNewPlayer = !this.players.has(state.gamePlayerId);
+    this.players.set(state.gamePlayerId, state);
     
     console.log(`📊 Game Frame Update:`, {
-      playerId: state.id,
+      gamePlayerId: state.gamePlayerId,
+      username: state.username,
       action: isNewPlayer ? 'NEW PLAYER JOINED' : 'UPDATE',
-      position: `(${Math.round(state.x)}, ${Math.round(state.y)})`,
-      rotation: `${(state.rotation * 180 / Math.PI).toFixed(1)}°`,
+      position: `(${Math.round(state.position.x)}, ${Math.round(state.position.y)})`,
+      rotation: `${(state.rotation ? state.rotation * 180 / Math.PI : 0).toFixed(1)}°`,
       health: `${state.health}/100`,
       isAlive: state.isAlive ? '✅' : '❌',
-      velocity: `(${Math.round(state.velocityX)}, ${Math.round(state.velocityY)})`,
+      velocity: `(${Math.round(state.velocity.x)}, ${Math.round(state.velocity.y)})`,
       totalPlayers: this.players.size,
       timestamp: new Date().toISOString()
     });

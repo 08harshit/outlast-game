@@ -1,14 +1,21 @@
 // Core game state types
 
 export interface PlayerState {
-  id: string;
-  x: number;
-  y: number;
-  rotation: number;
+  // IDs
+  gameId: string;
+  gamePlayerId: string; // The unique ID from the GamePlayer model
+  playerId: string; // The unique ID from the Player model
+  username: string;
+
+  // Game State
+  position: { x: number; y: number };
+  velocity: { x: number; y: number };
   health: number;
   isAlive: boolean;
-  velocityX: number;
-  velocityY: number;
+
+  // Additional optional realtime fields
+  rotation?: number;
+  isShooting?: boolean;
 }
 
 export interface BulletState {

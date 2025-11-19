@@ -393,16 +393,20 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private updatePlayerState(): void {
     const playerState: PlayerState = {
-      id: this.player.getData('playerId'),
-      x: this.player.x,
-      y: this.player.y,
+      gameId: this.player.getData('gameId') || 'default-game',
+      gamePlayerId: this.player.getData('gamePlayerId') || 'default-gamePlayer',
+      playerId: this.player.getData('playerId') || 'default-player',
+      username: this.player.getData('username') || 'Anonymous',
+      position: { x: this.player.x, y: this.player.y },
+      velocity: {
+        x: this.player.body?.velocity.x || 0,
+        y: this.player.body?.velocity.y || 0
+      },
       rotation: this.player.rotation,
       health: this.playerHealth,
       isAlive: this.playerHealth > 0,
-      velocityX: this.player.body?.velocity.x || 0,
-      velocityY: this.player.body?.velocity.y || 0
+      isShooting: false
     };
-    
   }
 
   private update(): void {

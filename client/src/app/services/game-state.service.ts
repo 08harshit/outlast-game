@@ -44,7 +44,7 @@ export class GameStateService {
    */
   updatePlayer(player: PlayerState): void {
     const currentState = this.gameStateSubject.value;
-    const existingPlayerIndex = currentState.players.findIndex((p: PlayerState) => p.id === player.id);
+    const existingPlayerIndex = currentState.players.findIndex((p: PlayerState) => p.gamePlayerId === player.gamePlayerId);
     
     if (existingPlayerIndex >= 0) {
       currentState.players[existingPlayerIndex] = player;
@@ -116,8 +116,9 @@ export class GameStateService {
       obstacleCount: state.obstacles.length,
       worldSize: `${state.worldWidth}x${state.worldHeight}`,
       players: state.players.map((p: PlayerState) => ({
-        id: p.id,
-        position: `(${Math.round(p.x)}, ${Math.round(p.y)})`,
+        gamePlayerId: p.gamePlayerId,
+        username: p.username,
+        position: `(${Math.round(p.position.x)}, ${Math.round(p.position.y)})`,
         health: p.health,
         alive: p.isAlive
       })),

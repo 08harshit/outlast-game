@@ -3,6 +3,7 @@
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "rootDir": "../",
     "outDir": "./dist",
     "resolvePackageJsonExports": true,
     "emitDecoratorMetadata": true,
